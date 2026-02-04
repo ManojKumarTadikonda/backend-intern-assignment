@@ -11,6 +11,15 @@ export const taskService = {
     return res.data;
   },
 
+  async getAllTasksAdmin(params?: {
+    search?: string;
+    status?: string;
+    page?: number;
+  }): Promise<{ tasks: Task[]; pages: number }> {
+    const res = await api.get("/tasks/admin/all", { params });
+    return res.data;
+  },
+
   async createTask(taskData: TaskFormData): Promise<Task> {
     const response = await api.post("/tasks", taskData);
     return response.data;

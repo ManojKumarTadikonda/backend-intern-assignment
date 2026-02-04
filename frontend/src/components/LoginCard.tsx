@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { authService } from "../services/authService";
-
+import { getUserRole } from "../services/authService";
 interface Props {
   onAuthSuccess: () => void;
   onSwitchToSignup: () => void;
@@ -21,8 +21,13 @@ export function LoginCard({ onAuthSuccess, onSwitchToSignup, successMessage }: P
 
     try {
       const res = await authService.login({ email, password });
+      const token = res.data.token;
+      const role = getUserRole(token);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userName", res.data.user.name);
+      if (role) {
+      localStorage.setItem("role", role);
+    }
       onAuthSuccess();
     } catch {
       setError("Invalid email or password");

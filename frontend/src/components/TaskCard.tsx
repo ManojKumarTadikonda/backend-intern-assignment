@@ -1,32 +1,33 @@
-import { Edit2, Trash2, Calendar } from 'lucide-react';
-import type { Task } from '../types/task';
+import { Edit2, Trash2, Calendar } from "lucide-react";
+import type { Task } from "../types/task";
 
 interface TaskCardProps {
   task: Task;
   onEdit: (task: Task) => void;
   onDelete: (_id: string) => void;
+  role: String | null;
 }
 
-export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
+export function TaskCard({ task, onEdit, onDelete, role }: TaskCardProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Completed':
-        return 'bg-[#16A34A] text-white';
-      case 'In Progress':
-        return 'bg-[#2563EB] text-white';
-      case 'Pending':
-        return 'bg-gray-400 text-white';
+      case "Completed":
+        return "bg-[#16A34A] text-white";
+      case "In Progress":
+        return "bg-[#2563EB] text-white";
+      case "Pending":
+        return "bg-gray-400 text-white";
       default:
-        return 'bg-gray-400 text-white';
+        return "bg-gray-400 text-white";
     }
   };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
@@ -39,7 +40,7 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
           </h3>
           <span
             className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(
-              task.status
+              task.status,
             )}`}
           >
             {task.status}
@@ -47,20 +48,24 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
         </div>
 
         <div className="flex gap-2 ml-4">
-          <button
-            onClick={() => onEdit(task)}
-            className="p-2 text-[#2563EB] hover:bg-[#EFF6FF] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-1"
-            aria-label="Edit task"
-          >
-            <Edit2 className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => onDelete(task._id)}
-            className="p-2 text-[#DC2626] hover:bg-[#FEF2F2] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#DC2626] focus:ring-offset-1"
-            aria-label="Delete task"
-          >
-            <Trash2 className="w-4 h-4" />
-          </button>
+          {role !== "admin" && (
+            <>
+              <button
+                onClick={() => onEdit(task)}
+                className="p-2 text-[#2563EB] hover:bg-[#EFF6FF] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-1"
+                aria-label="Edit task"
+              >
+                <Edit2 className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => onDelete(task._id)}
+                className="p-2 text-[#DC2626] hover:bg-[#FEF2F2] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#DC2626] focus:ring-offset-1"
+                aria-label="Delete task"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </>
+          )}
         </div>
       </div>
 

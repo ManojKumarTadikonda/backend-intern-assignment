@@ -6,6 +6,7 @@ import { taskService } from "./services/taskService";
 import type { Task, TaskFormData } from "./types/task";
 import { SignupCard } from "./components/SignupCard";
 import { LoginCard } from "./components/LoginCard";
+import { AdminRegisterForm } from "./components/AdminRegisterForm";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -15,6 +16,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     !!localStorage.getItem("token"),
   );
+  const role = localStorage.getItem("role");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [page, setPage] = useState(1);
@@ -32,11 +34,25 @@ function App() {
   const loadTasks = async () => {
     try {
       setIsLoading(true);
-      const res = await taskService.getAllTasks({
-        search,
-        status: statusFilter,
-        page,
-      });
+
+      let res;
+
+      if (role === "admin") {
+        // 👑 Admin → fetch all tasks
+        res = await taskService.getAllTasksAdmin({
+          search,
+          status: statusFilter,
+          page,
+        });
+      } else {
+        // 👤 User → fetch own tasks
+        res = await taskService.getAllTasks({
+          search,
+          status: statusFilter,
+          page,
+        });
+      }
+
       setTasks(res.tasks);
       setPages(res.pages);
     } catch (err) {
@@ -111,45 +127,49 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
-            <TaskForm
-              onSubmit={editingTask ? handleUpdateTask : handleCreateTask}
-              editingTask={editingTask}
-              onCancelEdit={handleCancelEdit}
-            />
+            {role === "admin" ? (
+              <AdminRegisterForm />
+            ) : (
+              <TaskForm
+                onSubmit={editingTask ? handleUpdateTask : handleCreateTask}
+                editingTask={editingTask}
+                onCancelEdit={handleCancelEdit}
+              />
+            )}
           </div>
           <div className="lg:col-span-2">
-            
-          <div className="flex flex-col sm:flex-row gap-4 mb-6">
-            <input
-              type="text"
-              placeholder="Search tasks..."
-              value={search}
-              onChange={(e) => {
-                setPage(1);
-                setSearch(e.target.value);
-              }}
-              className="border rounded px-3 py-2 w-full sm:w-1/2"
-            />
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+              <input
+                type="text"
+                placeholder="Search tasks..."
+                value={search}
+                onChange={(e) => {
+                  setPage(1);
+                  setSearch(e.target.value);
+                }}
+                className="border rounded px-3 py-2 w-full sm:w-1/2"
+              />
 
-            <select
-              value={statusFilter}
-              onChange={(e) => {
-                setPage(1);
-                setStatusFilter(e.target.value);
-              }}
-              className="border rounded px-3 py-2 w-full sm:w-1/4"
-            >
-              <option value="">All Status</option>
-              <option value="Pending">Pending</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-            </select>
-          </div>
+              <select
+                value={statusFilter}
+                onChange={(e) => {
+                  setPage(1);
+                  setStatusFilter(e.target.value);
+                }}
+                className="border rounded px-3 py-2 w-full sm:w-1/4"
+              >
+                <option value="">All Status</option>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
             <TaskList
               tasks={tasks}
               onEdit={handleEditTask}
               onDelete={handleDeleteTask}
               isLoading={isLoading}
+              role={role}
             />
             <div className="flex justify-center items-center gap-2 mt-6">
               <button

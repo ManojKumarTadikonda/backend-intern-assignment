@@ -10,8 +10,8 @@ app.use(express.json());
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"));
 
-app.use("/auth", require("./routes/authRoutes"));
-app.use("/tasks", require("./routes/taskRoutes"));
+app.use("/api/v1/auth", require("./routes/authRoutes"));
+app.use("/api/v1/tasks", require("./routes/taskRoutes"));
 
 app.listen(5000, () =>
   console.log("Server running on port 5000")

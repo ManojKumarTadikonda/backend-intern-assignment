@@ -7,9 +7,10 @@ interface TaskListProps {
   onEdit: (task: Task) => void;
   onDelete: (_id: string) => void;
   isLoading?: boolean;
+  role: string | null;
 }
 
-export function TaskList({ tasks, onEdit, onDelete, isLoading }: TaskListProps) {
+export function TaskList({ tasks, onEdit, onDelete, isLoading, role }: TaskListProps) {
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-md p-12">
@@ -45,7 +46,7 @@ export function TaskList({ tasks, onEdit, onDelete, isLoading }: TaskListProps) 
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {tasks.map((task) => (
-          <TaskCard key={task._id} task={task} onEdit={onEdit} onDelete={onDelete} />
+          <TaskCard key={task._id} task={task} onEdit={onEdit} onDelete={onDelete} role={role} />
         ))}
       </div>
     </div>

@@ -2,10 +2,12 @@ import { CheckSquare, LogOut, User } from "lucide-react";
 
 export function Header() {
   const userName = localStorage.getItem("userName");
+  const role = localStorage.getItem("role");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userName");
+    localStorage.removeItem("role");
     window.location.reload();
   };
 
@@ -13,7 +15,6 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-[#2563EB] shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          
           {/* App Title */}
           <div className="flex items-center gap-3">
             <CheckSquare className="w-8 h-8 text-white" strokeWidth={2.5} />
@@ -30,6 +31,11 @@ export function Header() {
                 </span>
               </div>
             )}
+            {role === "admin" && (
+              <span className="ml-2 text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
+                Admin
+              </span>
+            )}
 
             <button
               onClick={handleLogout}
@@ -39,7 +45,6 @@ export function Header() {
               Logout
             </button>
           </div>
-
         </div>
       </div>
     </header>
