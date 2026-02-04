@@ -86,24 +86,43 @@ The primary focus of this project is **backend architecture, security, and scala
 - Authentication required via `Authorization: Bearer <JWT>`
 - API documentation and testing using Postman (Swagger-ready architecture)
 
-## 🧪 Postman Collection
+🧪 API Documentation (Postman)
 
-A complete Postman collection is provided to test all APIs, including:
+The APIs are fully documented using Postman Documenter, providing a clear and interactive reference for all endpoints.
 
-- User authentication
-- Role-based access control (User / Admin)
-- Task CRUD operations
-- Admin-only endpoints
-- Search, filtering, and pagination
+The documentation covers:
 
-🔗 **Postman Collection Link:**  
-https://.postman.co/workspace/My-Workspace~02dde1f3-487f-44bf-8a05-5991a200ca09/request/40196447-9f355027-403e-4dc7-aa56-c9d5a3c78547?action=share&creator=40196447&ctx=documentation&active-environment=40196447-eab35072-5366-4b3b-8032-903ee7280eb6
+User registration and authentication
 
-### How to Use
-1. Import the collection into Postman
-2. Set the `base_url` environment variable (e.g., `http://localhost:5000/api/v1`)
-3. Use the login APIs to generate JWT tokens
-4. Tokens are automatically reused for authenticated requests
+Role-based access control (User / Admin)
+
+Task CRUD operations
+
+Admin-only endpoints
+
+Search, filtering, and pagination
+
+🔗 Postman API Documentation:
+https://documenter.getpostman.com/view/40196447/2sBXc7MQmY
+
+How to Use
+
+Open the documentation link above
+
+Review request/response examples for each endpoint
+
+Use the documented endpoints directly in Postman or any REST client
+
+Set the base URL to:
+
+http://localhost:5000/api/v1
+
+
+Authenticate using the login endpoints to obtain a JWT token
+
+Pass the token as Authorization: Bearer <JWT> for protected routes
+
+Note: The documentation is read-only. A Postman collection can be imported or recreated easily using the documented endpoints.
 
 
 Key Endpoints:
