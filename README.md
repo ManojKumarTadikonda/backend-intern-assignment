@@ -252,6 +252,16 @@ docker-compose up --build
 
 ---
 
+## 📑 Logs & API Testing Proof
+
+The `/logs` directory contains:
+- Postman screenshots demonstrating authenticated user and admin API access
+- Docker build and runtime logs showing successful containerized deployment
+- Proof of role-based access control and protected routes
+
+These logs validate correct API behavior, security, and deployment readiness.
+
+
 ## 📸 Screenshots
 
 Below are some screenshots demonstrating the functionality of the application.
