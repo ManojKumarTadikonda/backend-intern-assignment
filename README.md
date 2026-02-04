@@ -86,6 +86,25 @@ The primary focus of this project is **backend architecture, security, and scala
 - Authentication required via `Authorization: Bearer <JWT>`
 - API documentation and testing using Postman (Swagger-ready architecture)
 
+## 🧪 Postman Collection
+
+A complete Postman collection is provided to test all APIs, including:
+
+- User authentication
+- Role-based access control (User / Admin)
+- Task CRUD operations
+- Admin-only endpoints
+- Search, filtering, and pagination
+
+🔗 **Postman Collection Link:**  
+https://.postman.co/workspace/My-Workspace~02dde1f3-487f-44bf-8a05-5991a200ca09/request/40196447-9f355027-403e-4dc7-aa56-c9d5a3c78547?action=share&creator=40196447&ctx=documentation&active-environment=40196447-eab35072-5366-4b3b-8032-903ee7280eb6
+
+### How to Use
+1. Import the collection into Postman
+2. Set the `base_url` environment variable (e.g., `http://localhost:5000/api/v1`)
+3. Use the login APIs to generate JWT tokens
+4. Tokens are automatically reused for authenticated requests
+
 
 Key Endpoints:
 - `POST /api/v1/auth/register` – Register user
