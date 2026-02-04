@@ -1,24 +1,30 @@
-import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import api from "./api";
-const API = `${import.meta.env.VITE_API_URL}/auth`;
 
 export const authService = {
-    register(data: any) {
-        return axios.post(`${API}/register`, data);
+    register(data: {
+        name: string;
+        email: string;
+        password: string;
+    }) {
+        return api.post("/auth/register", data);
     },
-    login(data: any) {
-        return axios.post(`${API}/login`, data);
+
+    login(data: {
+        email: string;
+        password: string;
+    }) {
+        return api.post("/auth/login", data);
     },
-    registerAdmin: (data: {
+
+    registerAdmin(data: {
         name: string;
         email: string;
         password: string;
         role: "admin";
-    }) => {
-        return api.post(`${API}/register-admin`, data);
+    }) {
+        return api.post("/auth/register-admin", data);
     },
-
 };
 
 interface DecodedToken {
