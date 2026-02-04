@@ -1,31 +1,90 @@
 ---
 
-# 📋 Task Management Web Application
+# 📋 Backend Intern Assignment – Task Management System
 
-A full-stack **Task Management Web Application** built as part of a technical assignment.
-The application allows users to securely register and log in, manage their tasks efficiently, and organize them using search, filtering, and pagination.
+A scalable full-stack Task Management system built as part of a **Backend Developer Intern assignment**.  
+The project demonstrates secure authentication, role-based access control, RESTful API design, and a minimal frontend to interact with protected APIs.
 
-The project follows **clean coding practices**, **RESTful API design**, and a **scalable full-stack architecture**.
-
----
-
-## 🚀 Features
-
-* User authentication (Signup & Login) using JWT
-* Secure, user-specific task management
-* Create, update, and delete tasks
-* Search tasks by title
-* Filter tasks by status (Pending / In Progress / Completed)
-* Pagination for efficient data handling
-* Responsive and clean UI
-* Dockerized setup for easy local execution
-* Deployed backend & frontend (optional)
+The primary focus of this project is **backend architecture, security, and scalability**, with a lightweight frontend for API validation.
 
 ---
 
-## 🔗 **Live Links**
-- Frontend: https://techsynix-assignment.vercel.app
-- Backend API: https://techsynix-assignment.onrender.com
+## 🚀 Core Features
+
+### 🔐 Authentication & Authorization
+- User registration and login using **JWT authentication**
+- Authorization enforced using middleware based on decoded JWT role
+- Secure password hashing using **bcrypt**
+- **Role-based access control** (User / Admin)
+- Admin users can access and manage all tasks
+- Regular users can only access their own tasks
+
+
+### 📋 Task Management (CRUD)
+- Create, update, and delete tasks
+- User-specific task access
+- Admin access to all tasks
+- Search tasks by title
+- Filter tasks by status (Pending / In Progress / Completed)
+- Pagination for large datasets
+
+### 🛡️ Security & Best Practices
+- Input validation and sanitization
+- Protected routes using JWT middleware
+- Proper HTTP status codes and error handling
+- Environment-based configuration
+
+### 🧪 Developer Experience
+- RESTful API design with versioning (`/api/v1`)
+- API testing using Postman / Swagger
+- Dockerized setup for local development
+
+
+---
+## 📌 Assignment Requirement Coverage
+
+| Requirement | Status |
+|------------|--------|
+| User registration & login | ✅ Implemented |
+| Password hashing & JWT auth | ✅ Implemented |
+| Role-based access (User / Admin) | ✅ Implemented |
+| CRUD APIs for secondary entity (Tasks) | ✅ Implemented |
+| API versioning | ✅ `/api/v1` |
+| Error handling & validation | ✅ Implemented |
+| API documentation | ✅ Postman / Swagger |
+| Database schema | ✅ MongoDB (Mongoose) |
+| Basic frontend UI | ✅ React |
+| Docker support | ✅ Included |
+| Scalability considerations | ✅ Documented |
+
+## 📈 Scalability & Architecture Notes
+
+- Stateless JWT authentication enables horizontal scaling
+- Follows separation of concerns to allow easy migration to microservices
+- Modular backend architecture (routes, controllers, services, middlewares)
+- MongoDB Atlas supports scalable cloud storage
+- Docker ensures environment consistency across deployments
+- Can be extended with:
+  - Redis for caching
+  - Microservices architecture
+  - Load balancers (Nginx)
+  - Rate limiting and centralized logging
+
+## 📘 API Documentation
+
+- All APIs follow REST principles and proper HTTP status codes
+- Some endpoints are restricted to admin users only and require an admin JWT token.
+- Authentication required via `Authorization: Bearer <JWT>`
+- API documentation and testing using Postman (Swagger-ready architecture)
+
+
+Key Endpoints:
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
+- `GET /api/v1/tasks`
+- `POST /api/v1/tasks`
+- `PUT /api/v1/tasks/:id`
+- `DELETE /api/v1/tasks/:id`
 
 
 ## 🛠 Tech Stack
@@ -43,7 +102,7 @@ The project follows **clean coding practices**, **RESTful API design**, and a **
 * Express.js
 * MongoDB Atlas
 * Mongoose
-* JWT Authentication
+* JWT-based Authentication
 * bcrypt
 
 ### DevOps & Tools
@@ -58,7 +117,7 @@ The project follows **clean coding practices**, **RESTful API design**, and a **
 ## 📁 Project Structure
 
 ```
-task-manager-fullstack/
+backend-intern-assignment/
 │── frontend/        # React + Vite frontend
 │── backend/         # Node.js + Express backend
 │── docker-compose.yml
@@ -92,8 +151,8 @@ VITE_API_URL=http://localhost:5000
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/ManojKumarTadikonda/Techsynix_Assignment.git
-cd Techsynix_Assignment
+git clone https://github.com/ManojKumarTadikonda/backend-intern-assignment.git
+cd backend-intern-assignment
 ```
 
 ---
@@ -156,6 +215,10 @@ docker-compose up --build
 | Frontend | [http://localhost:3000](http://localhost:3000) |
 | Backend  | [http://localhost:5000](http://localhost:5000) |
 
+> Note: When running with Docker, the frontend is served on port 3000.
+> When running locally with Vite, it runs on port 5173.
+
+
 ---
 
 ## 📸 Screenshots
@@ -199,17 +262,9 @@ Demo Video : https://youtu.be/9Nru-S4mn5I
 
 ---
 
-## 🌐 Deployment
 
-* **Frontend:** Vercel
-* **Backend:** Render
-* **Database:** MongoDB Atlas
+## 👤 Author
 
----
+**Manoj Kumar**  
+Full-Stack Developer | Backend-Focused  
 
-### 👤 Author
-
-**Manoj Kumar**
-Full Stack Developer
-
----
