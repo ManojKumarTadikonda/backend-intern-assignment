@@ -16,17 +16,26 @@ The primary focus of this project is **backend architecture, security, and scala
 - Authorization enforced using middleware based on decoded JWT role
 - Secure password hashing using **bcrypt**
 - **Role-based access control** (User / Admin)
-- Admin users can access and manage all tasks
+- Admin users can view all tasks (read-only access)
+- Admins can create other admin users via a protected endpoint
 - Regular users can only access their own tasks
 
 
 ### 📋 Task Management (CRUD)
-- Create, update, and delete tasks
-- User-specific task access
-- Admin access to all tasks
+- Users can create, update, and delete their own tasks
+- User-specific task access enforced at backend
+- Admin users can view all tasks across users
 - Search tasks by title
 - Filter tasks by status (Pending / In Progress / Completed)
 - Pagination for large datasets
+
+  
+### 👑 Admin Capabilities
+- View all tasks across all users (read-only)
+- Search and filter tasks globally
+- Create other admin users via protected API
+- Admin actions secured using JWT role-based authorization
+
 
 ### 🛡️ Security & Best Practices
 - Input validation and sanitization
@@ -77,14 +86,36 @@ The primary focus of this project is **backend architecture, security, and scala
 - Authentication required via `Authorization: Bearer <JWT>`
 - API documentation and testing using Postman (Swagger-ready architecture)
 
+## 🧪 Postman Collection
+
+A complete Postman collection is provided to test all APIs, including:
+
+- User authentication
+- Role-based access control (User / Admin)
+- Task CRUD operations
+- Admin-only endpoints
+- Search, filtering, and pagination
+
+🔗 **Postman Collection Link:**  
+https://.postman.co/workspace/My-Workspace~02dde1f3-487f-44bf-8a05-5991a200ca09/request/40196447-9f355027-403e-4dc7-aa56-c9d5a3c78547?action=share&creator=40196447&ctx=documentation&active-environment=40196447-eab35072-5366-4b3b-8032-903ee7280eb6
+
+### How to Use
+1. Import the collection into Postman
+2. Set the `base_url` environment variable (e.g., `http://localhost:5000/api/v1`)
+3. Use the login APIs to generate JWT tokens
+4. Tokens are automatically reused for authenticated requests
+
 
 Key Endpoints:
-- `POST /api/v1/auth/register`
-- `POST /api/v1/auth/login`
-- `GET /api/v1/tasks`
-- `POST /api/v1/tasks`
-- `PUT /api/v1/tasks/:id`
-- `DELETE /api/v1/tasks/:id`
+- `POST /api/v1/auth/register` – Register user
+- `POST /api/v1/auth/login` – Login user/admin
+- `POST /api/v1/auth/register-admin` – Create admin (Admin only)
+- `GET /api/v1/tasks` – Get logged-in user's tasks
+- `POST /api/v1/tasks` – Create task (User only)
+- `PUT /api/v1/tasks/:id` – Update task (User only)
+- `DELETE /api/v1/tasks/:id` – Delete task (User only)
+- `GET /api/v1/tasks/admin/all` – Get all tasks (Admin only)
+
 
 
 ## 🛠 Tech Stack
@@ -246,19 +277,6 @@ Below are some screenshots demonstrating the functionality of the application.
 <img src="screenshots/mobile-view3.jpeg" width="250" />
 </p>
 
-
----
-
-## 🎥 Demo Video
-
-A short screen recording (2.20 minutes) demonstrating:
-
-* Project setup
-* User authentication
-* Task creation, update, and deletion
-* Search and pagination
-
-Demo Video : https://youtu.be/9Nru-S4mn5I 
 
 ---
 
