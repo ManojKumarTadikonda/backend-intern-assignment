@@ -16,17 +16,26 @@ The primary focus of this project is **backend architecture, security, and scala
 - Authorization enforced using middleware based on decoded JWT role
 - Secure password hashing using **bcrypt**
 - **Role-based access control** (User / Admin)
-- Admin users can access and manage all tasks
+- Admin users can view all tasks (read-only access)
+- Admins can create other admin users via a protected endpoint
 - Regular users can only access their own tasks
 
 
 ### 📋 Task Management (CRUD)
-- Create, update, and delete tasks
-- User-specific task access
-- Admin access to all tasks
+- Users can create, update, and delete their own tasks
+- User-specific task access enforced at backend
+- Admin users can view all tasks across users
 - Search tasks by title
 - Filter tasks by status (Pending / In Progress / Completed)
 - Pagination for large datasets
+
+  
+### 👑 Admin Capabilities
+- View all tasks across all users (read-only)
+- Search and filter tasks globally
+- Create other admin users via protected API
+- Admin actions secured using JWT role-based authorization
+
 
 ### 🛡️ Security & Best Practices
 - Input validation and sanitization
@@ -79,12 +88,15 @@ The primary focus of this project is **backend architecture, security, and scala
 
 
 Key Endpoints:
-- `POST /api/v1/auth/register`
-- `POST /api/v1/auth/login`
-- `GET /api/v1/tasks`
-- `POST /api/v1/tasks`
-- `PUT /api/v1/tasks/:id`
-- `DELETE /api/v1/tasks/:id`
+- `POST /api/v1/auth/register` – Register user
+- `POST /api/v1/auth/login` – Login user/admin
+- `POST /api/v1/auth/register-admin` – Create admin (Admin only)
+- `GET /api/v1/tasks` – Get logged-in user's tasks
+- `POST /api/v1/tasks` – Create task (User only)
+- `PUT /api/v1/tasks/:id` – Update task (User only)
+- `DELETE /api/v1/tasks/:id` – Delete task (User only)
+- `GET /api/v1/tasks/admin/all` – Get all tasks (Admin only)
+
 
 
 ## 🛠 Tech Stack
@@ -246,19 +258,6 @@ Below are some screenshots demonstrating the functionality of the application.
 <img src="screenshots/mobile-view3.jpeg" width="250" />
 </p>
 
-
----
-
-## 🎥 Demo Video
-
-A short screen recording (2.20 minutes) demonstrating:
-
-* Project setup
-* User authentication
-* Task creation, update, and deletion
-* Search and pagination
-
-Demo Video : https://youtu.be/9Nru-S4mn5I 
 
 ---
 
